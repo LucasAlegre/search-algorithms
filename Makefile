@@ -1,7 +1,20 @@
-all: Main.cpp
-	g++ -std=c++11 -O3 -o main Main.cpp 
+GPP=g++ -std=c++14 -O3
+BIN_DIR=./bin
+SRC_DIR=./src/
+
+SRC=$(wildcard $(SRC_DIR)**/*.cpp)
+OBJ=$(addprefix $(BIN_DIR)/,$(notdir $(SRC:.cpp=.o)))
+
+all: $(OBJ)
+	$(GPP) -o main $(OBJ) Main.cpp 
+
+./bin/%.o: ./src/NPuzzle/%.cpp
+	@mkdir -p $(BIN_DIR)
+	$(GPP) -c -o $@ $<
+
+./bin/%.o: ./src/Algorithms/%.cpp
+	@mkdir -p $(BIN_DIR)
+	$(GPP) -c -o $@ $<
 
 clean:
-	rm -f *.o
-	rm -f main
-	rm -f *.csv
+	rm -rf *.o *~ bin main

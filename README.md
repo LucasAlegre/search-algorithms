@@ -1,1 +1,1 @@
-# n-puzzle
+# Search Algorithms
