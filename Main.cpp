@@ -10,8 +10,8 @@ int main(int argc, char** argv) {
 
     BreadthFirstSearch bfs = BreadthFirstSearch();
 
-    Output output = bfs.run(state);
-    output.print();
+    bfs.run(state);
+    bfs.print();
 
     return 0;
 }

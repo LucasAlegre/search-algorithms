@@ -1,16 +1,14 @@
 #include <iostream>
 #include <bitset>
 #include "../../include/Algorithms/BreadthFirstSearch.h"
-#include "../../include/NPuzzle/Output.h"
 
-Output BreadthFirstSearch::run(State initialState) {
-    Output output;
-    output.startTimer();
+void BreadthFirstSearch::run(State initialState) {
+    this->startTimer();
 
     if (initialState.isGoal()){
-        output.stopTimer();
-        output.setInitialHeuristic(Node::heuristic(initialState));
-        return output;
+        this->stopTimer();
+        this->setInitialHeuristic(Node::heuristic(initialState));
+        return;
     }
 
     Node n(initialState, 0);
@@ -19,18 +17,18 @@ Output BreadthFirstSearch::run(State initialState) {
     this->closed = {};
     this->closed.insert(initialState.value);
 
-    output.setInitialHeuristic(n.getHeuristicValue());
+    this->setInitialHeuristic(n.getHeuristicValue());
 
     while(!this->open.empty()){
         Node n = this->open.front();
         this->open.pop();
-        output.increaseExpandedNodes();
+        this->increaseExpandedNodes();
 
         for(State nextState : n.getState().successorStates()){
             if (nextState.isGoal()){
-                output.stopTimer();
-                output.setSolutionLength(n.getCost() + 1);
-                return output;
+                this->stopTimer();
+                this->setSolutionLength(n.getCost() + 1);
+                return;
             }
             if (closed.find(nextState.value) == closed.end()){
                 this->closed.insert(nextState.value);
@@ -39,6 +37,5 @@ Output BreadthFirstSearch::run(State initialState) {
             }
         }
     }
-    output.stopTimer();
-    return output;
+    this->stopTimer();
 }

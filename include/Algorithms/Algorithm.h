@@ -1,14 +1,15 @@
-#ifndef OUTPUT_H
-#define OUTPUT_H
+#ifndef ALGO_H
+#define ALGO_H
 
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <chrono>
+#include "../NPuzzle/State.h"
 
 using namespace std;
 
-class Output {
+class Algorithm {
 
 private:
     unsigned int expandedNodes;
@@ -20,7 +21,7 @@ private:
     chrono::steady_clock::time_point endTime;
 
 public:
-    Output() : expandedNodes(0), solutionLength(0), generatedNodes(0), sumHeuristic(0) {};
+    Algorithm() : expandedNodes(0), solutionLength(0), generatedNodes(0), sumHeuristic(0) {};
     void increaseExpandedNodes();
     void addTotalHeuristic(int value);
     void setInitialHeuristic(int value);
@@ -30,6 +31,8 @@ public:
     double duration();
     double meanHeuristic();
     void print();
+
+    virtual void run(State initialState) = 0;
 };
 
 #endif

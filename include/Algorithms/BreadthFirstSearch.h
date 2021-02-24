@@ -6,18 +6,18 @@
 #include "../NPuzzle/State.h"
 #include "../NPuzzle/Node.h"
 #include "../NPuzzle/Output.h"
-
+#include "./Algorithm.h"
 
 using namespace std;
 
-class BreadthFirstSearch {
+class BreadthFirstSearch : public Algorithm  {
 
 private:
     queue<Node> open;
     unordered_set<uint64_t> closed;
 
 public:
-    Output run(State initialState);
+    void run(State initialState);
 };
 
 #endif

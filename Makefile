@@ -17,4 +17,4 @@ all: $(OBJ)
 	$(GPP) -c -o $@ $<
 
 clean:
-	rm -rf *.o *~ bin main
+	rm -rf *.o bin main
