@@ -5,7 +5,6 @@
 #include <queue>
 #include "../NPuzzle/State.h"
 #include "../NPuzzle/Node.h"
-#include "../NPuzzle/Output.h"
 #include "./Algorithm.h"
 
 using namespace std;
