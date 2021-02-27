@@ -25,6 +25,7 @@ int main(int argc, char** argv) {
 
     vector<int> game;
     vector<State> games;
+    ifstream file(argv[2]);
     //State state(vector<int>({0,1,2,3,4,5,6,7,8}));///S*
     ///State state(game);////S0
 
@@ -32,25 +33,42 @@ int main(int argc, char** argv) {
 
     string input ="";
 
-
-    for(int i=2; i<argc; i++)
+    if(argc > 3)
     {
-        input =argv[i];
-        if(input.find(",") == string::npos)
+        for(int i=2; i<argc; i++)
         {
-            game.push_back(stoi(input));
+            input =argv[i];
+            if(input.find(",") == string::npos)
+            {
+                game.push_back(stoi(input));
+            }
+            else
+            {
+                input = input.substr(0,input.size()-1);
+                game.push_back(stoi(input));
+                games.push_back(game);
+                game.clear();
+            }
         }
-        else
+        if(!game.empty())
+            games.push_back(game);
+    }
+    else if(argc == 3)
+    {
+        string line;
+        while(getline(file,line))
         {
-            input = input.substr(0,input.size()-1);
-            game.push_back(stoi(input));
+            vector<string> text_input = split(line," ");
+            for(int i = 0; i< text_input.size(); i++)
+            {
+                game.push_back(stoi(text_input[i]));
+            }
             games.push_back(game);
             game.clear();
         }
-        
     }
-    if(!game.empty())
-        games.push_back(game);
+    file.close();
+
     if(strcmp(argv[1],"-bfs")==0)
     {
         for(int i = 0; i<games.size(); i++)
