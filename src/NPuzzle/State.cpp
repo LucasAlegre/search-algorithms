@@ -26,6 +26,10 @@ State::State(vector<int> pos){
         State::goalState = 81985529216486895;
         State::sideDim = 4;
     }
+    else{
+        cout << "Invalid input." << endl;
+        exit(-1);
+    }
 }
 
 bool State::isGoal() const {

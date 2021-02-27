@@ -1,5 +1,5 @@
-#ifndef BFS_H
-#define BFS_H
+#ifndef IDS_H
+#define IDS_H
 
 #include <unordered_set>
 #include <queue>
@@ -9,14 +9,18 @@
 
 using namespace std;
 
-class BreadthFirstSearch : public Algorithm {
+class IterativeDeepening : public Algorithm {
 
 private:
     queue<Node> open;
     unordered_set<uint64_t> closed;
+    int maxDepth = 1000;
+
+    bool depthLimitedSearch(State& initialState, int depthLimit);
 
 public:
     void run(State initialState);
 };
+
 
 #endif

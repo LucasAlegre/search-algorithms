@@ -38,10 +38,10 @@ double Algorithm::meanHeuristic() {
 }
 
 void Algorithm::print() {
-    string Algorithm = to_string(this->expandedNodes) + ",";
-    Algorithm += to_string(this->solutionLength) + ',';
-    Algorithm += to_string(this->duration()) + ',';
-    Algorithm += to_string(this->meanHeuristic()) + ',';
-    Algorithm += to_string(this->initialHeuristic);
-    cout << Algorithm << endl;
+    string result = to_string(this->expandedNodes) + ",";
+    result += to_string(this->solutionLength) + ',';
+    result += to_string(this->duration()) + ',';
+    result += to_string(this->meanHeuristic()) + ',';
+    result += to_string(this->initialHeuristic);
+    cout << result << endl;
 }
