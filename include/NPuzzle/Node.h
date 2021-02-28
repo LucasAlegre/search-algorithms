@@ -8,8 +8,9 @@ class Node {
 public:
     Node(State state, int cost) : state(state), cost(cost) { this->heuristicValue = heuristic(this->state); }
     const State& getState() const { return state; }
-    const int getCost() const { return cost; }
-    const int getHeuristicValue() const { return heuristicValue; }
+    int getCost() const { return cost; }
+    int getHeuristicValue() const { return heuristicValue; }
+    int f() const;
     static int heuristic(State state);
 
 private:

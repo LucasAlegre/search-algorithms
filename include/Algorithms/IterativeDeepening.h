@@ -12,8 +12,6 @@ using namespace std;
 class IterativeDeepening : public Algorithm {
 
 private:
-    queue<Node> open;
-    unordered_set<uint64_t> closed;
     int maxDepth = 1000;
 
     bool depthLimitedSearch(State& initialState, int depthLimit);

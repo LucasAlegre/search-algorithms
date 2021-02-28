@@ -4,6 +4,10 @@
 #include "../../include/NPuzzle/Node.h"
 #include "../../include/NPuzzle/State.h"
 
+int Node::f() const {
+    return this->cost + this->heuristicValue;
+}
+
 int Node::heuristic(State state){
     uint64_t mask = 15; // 1111
     uint8_t k = 0;

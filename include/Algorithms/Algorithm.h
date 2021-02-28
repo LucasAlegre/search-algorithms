@@ -23,7 +23,7 @@ private:
 public:
     Algorithm() : expandedNodes(0), solutionLength(0), generatedNodes(0), sumHeuristic(0) {};
     void increaseExpandedNodes();
-    void addTotalHeuristic(int value);
+    void logGeneratedNode(int h);
     void setInitialHeuristic(int value);
     void setSolutionLength(unsigned int value);
     void startTimer();

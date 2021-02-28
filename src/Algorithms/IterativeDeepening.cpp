@@ -20,7 +20,7 @@ void IterativeDeepening::run(State initialState) {
     this->startTimer();
     this->setInitialHeuristic(Node::heuristic(initialState));
 
-    for(int depth = 0; depth < this->maxDepth; depth++){
+    for(int depth = 0; depth <= this->maxDepth; depth++){
         bool solution = depthLimitedSearch(initialState, depth);
         if(solution) {
             this->stopTimer();

@@ -4,8 +4,9 @@ void Algorithm::increaseExpandedNodes(){
     this->expandedNodes++;
 }
 
-void Algorithm::addTotalHeuristic(int value){
-    this->sumHeuristic += value;
+void Algorithm::logGeneratedNode(int h){
+    this->generatedNodes++;
+    this->sumHeuristic += h;
 }
 
 void Algorithm::setInitialHeuristic(int value) {

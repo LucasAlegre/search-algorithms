@@ -3,7 +3,7 @@
 #include <sstream>
 #include "include/Algorithms/BreadthFirstSearch.h"
 #include "include/Algorithms/IterativeDeepening.h"
-
+#include "include/Algorithms/IDAStar.h"
 
 using namespace std;
 
@@ -27,7 +27,6 @@ int main(int argc, char** argv) {
     vector<State> games;
 
     ifstream file(argv[2]);
-
     string input;
     if(argc > 3) {
         for(int i = 2; i < argc; i++) {
@@ -36,7 +35,7 @@ int main(int argc, char** argv) {
                 game.push_back(stoi(input));
             }
             else {
-                input = input.substr(0,input.size()-1);
+                input = input.substr(0, input.size() - 1);
                 game.push_back(stoi(input));
                 games.push_back(game);
                 game.clear();
@@ -48,7 +47,7 @@ int main(int argc, char** argv) {
     else if(argc == 3) {
         string line;
         while(getline(file, line)) {
-            vector<string> text_input = split(line," ");
+            vector<string> text_input = split(line, " ");
             for(int i = 0; i < text_input.size(); i++) {
                 game.push_back(stoi(text_input[i]));
             }
@@ -76,7 +75,11 @@ int main(int argc, char** argv) {
         ///function
     }
     else if(strcmp(argv[1],"-idastar")==0) {
-        ///function
+        for(int i = 0; i < games.size(); i++){
+            IDAStar idastar = IDAStar();
+            idastar.run(games[i]);
+            idastar.print();
+        }
     }
     else if(strcmp(argv[1],"-gbfs")==0) {
         ///function
