@@ -19,17 +19,24 @@ State::State(vector<int> pos){
     }
     State::nPuzzle = pos.size() - 1;
     if(State::nPuzzle == 8){
-        State::goalState = 36344967696;
+        State::goalState = 36344967696U;  // 0 1 2 3 4 5 7 8
         State::sideDim = 3;
     }
     else if(State::nPuzzle == 15){
-        State::goalState = 81985529216486895;
+        State::goalState = 18364758544493064720U;  // 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
         State::sideDim = 4;
     }
     else{
         cout << "Invalid input." << endl;
         exit(-1);
     }
+}
+
+uint8_t State::valueAt(uint8_t i, uint8_t j) const {
+    uint64_t mask = 15;
+    auto moves = (4*(i*State::sideDim + j));
+    mask = mask << moves; 
+    return (this->value & mask) >> moves;   // I miss Neander and Ceasar
 }
 
 bool State::isGoal() const {
@@ -87,14 +94,10 @@ State State::move(uint8_t movePos) const {
 
 void State::print() const {
     string puzzle = "";
-    uint64_t k = 0;
-    uint64_t mask = 15;
     for (int i = 0; i < State::sideDim; i++){
         for (int j = 0; j < State::sideDim; j++){
-            uint64_t tile = (this->value & (mask << 4*k));   // I miss Neander and Ceasar
-            tile = tile >> 4*k;
+            auto tile = this->valueAt(i, j);
             puzzle += to_string(tile) + " "; 
-            k++;
         }
         puzzle += "\n";
     }

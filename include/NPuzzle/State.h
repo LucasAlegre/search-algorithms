@@ -21,6 +21,7 @@ struct State {
 
     State(uint64_t value, uint64_t blankPos, uint8_t parentBlankPos) : value(value), blankPos(blankPos), parentBlankPos(parentBlankPos) {};
     State(vector<int> pos);
+    uint8_t valueAt(uint8_t i, uint8_t j) const;
     bool isGoal() const;
     vector<State> successorStates() const;
     State move(uint8_t movePos) const;

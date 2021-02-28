@@ -13,7 +13,7 @@ class IDAStar : public Algorithm {
 private:
     int fLimit;
 
-    int fLimitedSearch(Node& node, int& recLimit);
+    int fLimitedSearch(Node &node, int &recLimit);
 
 public:
     void run(State initialState);

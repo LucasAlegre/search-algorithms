@@ -1,5 +1,5 @@
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 #include "../../include/NPuzzle/Node.h"
 #include "../../include/NPuzzle/State.h"
@@ -8,19 +8,54 @@ int Node::f() const {
     return this->cost + this->heuristicValue;
 }
 
-int Node::heuristic(State state){
-    uint64_t mask = 15; // 1111
-    uint8_t k = 0;
-    int heuristic = 0;
-    for(int i = 0; i < State::sideDim; i++){
-        for(int j = 0; j < State::sideDim; j++){
-            uint64_t valueMasked = state.value & mask;
-            int value = valueMasked >> 4*k;
+int Node::heuristic(const State &state) {
+    int heuristic = manhattan(state);
+    if(Node::addLinearConflicts)
+        heuristic += linearConflicts(state);
+    return heuristic;
+}
+
+int Node::manhattan(const State &state){
+    int manhattan = 0;
+    for(auto i = 0; i < State::sideDim; i++){
+        for(auto j = 0; j < State::sideDim; j++){
+            auto value = state.valueAt(i, j);
             if (value != 0)
-                heuristic += abs(i - (value / State::sideDim)) + abs(j - (value % State::sideDim));
-            k++;
-            mask = mask << 4;
+                manhattan += abs(i - (value / State::sideDim)) + abs(j - (value % State::sideDim));
         }
     }
-    return heuristic;
+    return manhattan;
+}
+
+int Node::linearConflicts(const State &state){
+    int conflicts = 0;
+    for (auto i = 0; i < State::sideDim; i++){
+        for (auto j = 0; j < State::sideDim; j++){
+            auto value = state.valueAt(i, j);
+            if(value == 0)
+                continue;
+            
+            if (j == (value % State::sideDim)){   // correct column
+                for(auto r = i; r < State::sideDim; r++){
+                    auto otherValue = state.valueAt(r, j);
+                    if (otherValue == 0)
+                        continue;
+                    if (j == (otherValue % State::sideDim) && value > otherValue){   // correct column too
+                        conflicts++;
+                    }
+                }
+            }
+            if(i == (value / State::sideDim)){ // correct row
+                for(auto c = j; c < State::sideDim; c++){
+                    auto otherValue = state.valueAt(i, c);
+                    if (otherValue == 0)
+                        continue;
+                    if(i == (otherValue / State::sideDim) && value > otherValue) { // correct row too
+                        conflicts++;
+                    }
+                }
+            }
+        }
+    }
+    return 2 * conflicts;
 }

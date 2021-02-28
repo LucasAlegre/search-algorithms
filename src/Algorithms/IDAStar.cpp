@@ -1,6 +1,6 @@
 #include "../../include/Algorithms/IDAStar.h"
 
-int IDAStar::fLimitedSearch(Node& node, int& recLimit){
+int IDAStar::fLimitedSearch(Node &node, int &recLimit){
     if (node.f() > this->fLimit){
         recLimit = node.f();
         return -1;

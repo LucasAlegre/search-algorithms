@@ -15,7 +15,7 @@ private:
     unsigned int expandedNodes;
     unsigned int generatedNodes;
     unsigned int solutionLength;
-    int sumHeuristic;
+    long long int sumHeuristic;
     int initialHeuristic;
     chrono::steady_clock::time_point startTime;
     chrono::steady_clock::time_point endTime;

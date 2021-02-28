@@ -11,7 +11,12 @@ public:
     int getCost() const { return cost; }
     int getHeuristicValue() const { return heuristicValue; }
     int f() const;
-    static int heuristic(State state);
+    
+    static int heuristic(const State &state);
+    static int manhattan(const State &state);
+    static int linearConflicts(const State &state);
+
+    static const bool addLinearConflicts = false;
 
 private:
     State state;
