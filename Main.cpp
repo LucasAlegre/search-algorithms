@@ -2,6 +2,7 @@
 #include <string.h>
 #include <sstream>
 #include "include/Algorithms/BreadthFirstSearch.h"
+#include "include/Algorithms/GreedyBreadthFirstSearch.h"
 #include "include/Algorithms/IterativeDeepening.h"
 #include "include/Algorithms/IDAStar.h"
 
@@ -25,8 +26,6 @@ int main(int argc, char** argv) {
 
     vector<int> game;
     vector<State> games;
-
-    ifstream file(argv[2]);
     string input;
     if(argc > 3) {
         for(int i = 2; i < argc; i++) {
@@ -45,6 +44,7 @@ int main(int argc, char** argv) {
             games.push_back(game);
     }
     else if(argc == 3) {
+        ifstream file(argv[2]);
         string line;
         while(getline(file, line)) {
             vector<string> text_input = split(line, " ");
@@ -54,8 +54,8 @@ int main(int argc, char** argv) {
             games.push_back(game);
             game.clear();
         }
+        file.close();
     }
-    file.close();
 
     if(strcmp(argv[1],"-bfs")==0) {
         for(int i = 0; i < games.size(); i++){
@@ -82,7 +82,11 @@ int main(int argc, char** argv) {
         }
     }
     else if(strcmp(argv[1],"-gbfs")==0) {
-        ///function
+        for(int i = 0; i < games.size(); i++){
+            GreedyBreadthFirstSearch gbfs = GreedyBreadthFirstSearch();
+            gbfs.run(games[i]);
+            gbfs.print();
+        }
     }
     else{ 
         cout << "Invalid algorithm." << endl;
