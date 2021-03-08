@@ -2,17 +2,19 @@
 #define GBFS_H
 
 #include <unordered_set>
-#include <stack>
+#include <queue>
 #include "../NPuzzle/State.h"
 #include "../NPuzzle/Node.h"
 #include "./Algorithm.h"
 
 using namespace std;
 
+class Compare;
+
 class GreedyBreadthFirstSearch : public Algorithm {
 
 private:
-    stack<Node> open;
+    priority_queue<Node, vector<Node>, Compare> open;
     unordered_set<uint64_t> closed;
 
 public:

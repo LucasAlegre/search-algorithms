@@ -2,6 +2,13 @@
 #include <bitset>
 #include "../../include/Algorithms/GreedyBreadthFirstSearch.h"
 
+class Compare{
+    public: bool operator()(Node N1, Node N2)
+    {
+        return N1.getHeuristicValue() > N2.getHeuristicValue();
+    }
+};
+
 void GreedyBreadthFirstSearch::run(State initialState) {
     this->startTimer();
 
