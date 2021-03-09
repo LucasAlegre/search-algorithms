@@ -9,7 +9,10 @@
 
 using namespace std;
 
-class Compare;
+class Compare {
+    public:
+        bool operator()(Node N1, Node N2);
+};
 
 class GreedyBreadthFirstSearch : public Algorithm {
 
