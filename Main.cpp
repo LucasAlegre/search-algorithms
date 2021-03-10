@@ -73,6 +73,7 @@ int main(int argc, char** argv) {
         }
     }
     else if(strcmp(argv[1],"-astar")==0) {
+        cout << "kkkk";
         for(int i = 0; i < games.size(); i++){
             AStar astar = AStar();
             astar.run(games[i]);

@@ -24,13 +24,14 @@ void GreedyBreadthFirstSearch::run(State initialState) {
     this->closed = {};
     this->closed.insert(initialState.value);
 
+    this->logGeneratedNode(n.getHeuristicValue());
     this->setInitialHeuristic(n.getHeuristicValue());
 
     while(!this->open.empty()){
         Node n = this->open.top();
         this->open.pop();
         this->increaseExpandedNodes();
-
+        this->logGeneratedNode(n.getHeuristicValue());
         for(State nextState : n.getState().successorStates()){
             if (nextState.isGoal()){
                 this->stopTimer();
