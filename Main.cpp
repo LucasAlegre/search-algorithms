@@ -5,6 +5,7 @@
 #include "include/Algorithms/GreedyBreadthFirstSearch.h"
 #include "include/Algorithms/IterativeDeepening.h"
 #include "include/Algorithms/IDAStar.h"
+#include "include/Algorithms/AStar.h"
 
 using namespace std;
 
@@ -72,7 +73,11 @@ int main(int argc, char** argv) {
         }
     }
     else if(strcmp(argv[1],"-astar")==0) {
-        ///function
+        for(int i = 0; i < games.size(); i++){
+            AStar astar = AStar();
+            astar.run(games[i]);
+            astar.print();
+        }
     }
     else if(strcmp(argv[1],"-idastar")==0) {
         for(int i = 0; i < games.size(); i++){
