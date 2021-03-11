@@ -1,16 +1,18 @@
 #include "../../include/Algorithms/AStar.h"
 
-bool Comparef::operator()(Node N1, Node N2)
-{
-    return N1.f() > N2.f();
+bool CompareAStar::operator()(Node &n1, Node &n2){
+    if (n1.f() != n2.f())
+        return n1.f() > n2.f();
+    else if (n1.getHeuristicValue() != n2.getHeuristicValue())
+        return n1.getHeuristicValue() > n2.getHeuristicValue();
+    else
+        return n1.getIndex() < n2.getIndex();
 }
 
-void AStar::run(State initialState)
-{
+void AStar::run(State initialState){
     this->startTimer();
 
-    if (initialState.isGoal())
-    {
+    if (initialState.isGoal()){
         this->stopTimer();
         this->setInitialHeuristic(Node::heuristic(initialState));
         return;
@@ -24,25 +26,23 @@ void AStar::run(State initialState)
     this->logGeneratedNode(n.getHeuristicValue());
     this->setInitialHeuristic(n.getHeuristicValue());
 
-    while (!this->open.empty())
-    {
+    while (!this->open.empty()){
         Node n = this->open.top();
         this->open.pop();
-        this->increaseExpandedNodes();
-        this->logGeneratedNode(n.getHeuristicValue());
-        if (closed.find(n.getState().value) == closed.end())
-        {
+
+        if (closed.find(n.getState().value) == closed.end()){
             this->closed.insert(n.getState().value);
-            if (n.getState().isGoal())
-            {
+            if (n.getState().isGoal()){
                 this->stopTimer();
-                this->setSolutionLength(n.getCost() + 1);
+                this->setSolutionLength(n.getCost());
                 return;
             }
-            for (State nextState : n.getState().successorStates())
-            {
+
+            this->increaseExpandedNodes();
+            for (State nextState : n.getState().successorStates()){
                 Node nextNode(nextState, n.getCost() + 1);
                 this->open.push(nextNode);
+                this->logGeneratedNode(nextNode.getHeuristicValue());
             }
         }
     }

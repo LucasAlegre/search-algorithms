@@ -4,6 +4,8 @@
 #include "../../include/NPuzzle/Node.h"
 #include "../../include/NPuzzle/State.h"
 
+unsigned long long int Node::nodeCount = 0;
+
 int Node::f() const {
     return this->cost + this->heuristicValue;
 }

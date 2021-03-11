@@ -2,11 +2,13 @@
 #include <bitset>
 #include "../../include/Algorithms/GreedyBreadthFirstSearch.h"
 
-
-
-bool Compare::operator()(Node N1, Node N2)
-{
-    return N1.getHeuristicValue() > N2.getHeuristicValue();
+bool CompareGBFS::operator()(Node &n1, Node &n2) {
+    if (n1.getHeuristicValue() != n2.getHeuristicValue())
+        return n1.getHeuristicValue() > n2.getHeuristicValue();
+    else if (n1.getCost() != n2.getCost())
+        return n1.getCost() < n2.getCost();
+    else
+        return n1.getIndex() < n2.getIndex();
 }
 
 void GreedyBreadthFirstSearch::run(State initialState) {
@@ -22,26 +24,27 @@ void GreedyBreadthFirstSearch::run(State initialState) {
     this->open;
     this->open.push(n);
     this->closed = {};
-    this->closed.insert(initialState.value);
 
     this->logGeneratedNode(n.getHeuristicValue());
     this->setInitialHeuristic(n.getHeuristicValue());
 
-    while(!this->open.empty()){
+    while (!this->open.empty()){
         Node n = this->open.top();
         this->open.pop();
-        this->increaseExpandedNodes();
-        this->logGeneratedNode(n.getHeuristicValue());
-        for(State nextState : n.getState().successorStates()){
-            if (nextState.isGoal()){
+
+        if (closed.find(n.getState().value) == closed.end()){
+            this->closed.insert(n.getState().value);
+            if (n.getState().isGoal()){
                 this->stopTimer();
-                this->setSolutionLength(n.getCost() + 1);
+                this->setSolutionLength(n.getCost());
                 return;
             }
-            if (closed.find(nextState.value) == closed.end()){
-                this->closed.insert(nextState.value);
+
+            this->increaseExpandedNodes();
+            for (State nextState : n.getState().successorStates()){
                 Node nextNode(nextState, n.getCost() + 1);
                 this->open.push(nextNode);
+                this->logGeneratedNode(nextNode.getHeuristicValue());
             }
         }
     }

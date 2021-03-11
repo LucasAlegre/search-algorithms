@@ -9,15 +9,14 @@
 
 using namespace std;
 
-class Compare {
-    public:
-        bool operator()(Node N1, Node N2);
+struct CompareGBFS {
+    bool operator()(Node &n1, Node &n2);
 };
 
 class GreedyBreadthFirstSearch : public Algorithm {
 
 private:
-    priority_queue<Node, vector<Node>, Compare> open;
+    priority_queue<Node, vector<Node>, CompareGBFS> open;
     unordered_set<uint64_t> closed;
 
 public:

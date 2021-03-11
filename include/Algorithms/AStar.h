@@ -9,15 +9,14 @@
 #include <unordered_set>
 using namespace std;
 
-class Comparef {
-    public:
-        bool operator()(Node N1, Node N2);
+struct CompareAStar {
+    bool operator()(Node &n1, Node &n2);
 };
 
 class AStar : public Algorithm {
 
 private:
-    priority_queue<Node, vector<Node>, Comparef> open;
+    priority_queue<Node, vector<Node>, CompareAStar> open;
     unordered_set<uint64_t> closed;
 
 public:
