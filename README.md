@@ -4,7 +4,7 @@ Implementation of the following search algorithms for the 8-Puzzle and 15-Puzzle
 
 * Breadth-First Search (BFS)
 * Iterative Deepening Search (IDS)
-* Greedy Breadth-First Search (BFS)
+* Greedy Breadth-First Search (GBFS)
 * A*
 * IDA*
 
