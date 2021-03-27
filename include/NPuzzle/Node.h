@@ -18,7 +18,7 @@ public:
     static int manhattan(const State &state);
     static int linearConflicts(const State &state);
 
-    static const bool addLinearConflicts = false;
+    static const bool addLinearConflicts = true;
 
 private:
     State state;
